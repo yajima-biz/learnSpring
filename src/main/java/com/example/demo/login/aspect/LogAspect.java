@@ -10,15 +10,15 @@ import org.springframework.stereotype.Component;
 public class LogAspect {
 
 	//@Before("execution(*com.example.demo.login.controller.LoginController.getLogin(..))")
-	@Before("execution(**..*.*Controller.*(..))")
 	//@Around("execution(**..*.*Controller.*(..))")
+	@Before("execution(* *..*.*Controller.*(..))")
 	public void startLog(JoinPoint jp) {
 		System.out.println("メソッド開始："+jp.getSignature());
 
 	}
 
 	//@After("execution(*com.example.demo.login.controller.LoginController.getLogin(..))")
-	@After("execution(**..*.*Controller.*(..))")
+	@After("execution(* *..*.*Controller.*(..))")
 	public void endLog(JoinPoint jp) {
 		System.out.println("メソッド終了："+jp.getSignature());
 	}
