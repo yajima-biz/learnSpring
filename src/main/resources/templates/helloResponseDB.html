@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th ="http:// www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>DBresponse</title>
+</head>
+<body>
+	<table>
+		<tr>
+			<td>ログインID：</td>
+			<td th:text="${login_id}"></td>
+		</tr>
+		<tr>
+			<td>ログインパスワード：</td>
+			<td th:text="${login_password}"></td>
+		</tr>
+		<tr>
+			<td>社員名：</td>
+			<td th:text="${shain_name}"></td>
+		</tr>
+		<tr>
+			<td>社員コードD：</td>
+			<td th:text="${shain_cd}"></td>
+		</tr>
+		<tr>
+			<td>社員権限コード：</td>
+			<td th:text="${shaincategory_cd}"></td>
+		</tr>
+	</table>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th ="http:// www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<script th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<title>SignUp</title>
+</head>
+<body>
+	<div class="col-sm-5">
+		<div class="page-header">
+			<h1>ユーザー登録画面</h1>
+		</div>
+		<form method="post" th:action="@{/signup}" th:object="${signupForm}">
+			<table class="table table-bordered table-hover">
+				<tr>
+					<th class="active">ログインID</th>
+					<td>
+						<div class="form-group" th:classappend="${#fields.hasErrors('login_id')}?'has-error'">
+							<input type="text" class="form-control" th:field="*{login_id}">
+							<span class="text-danger" th:if="${#fields.hasErrors('login_id')}" th:errors="*{login_id}">login_id error</span>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="active">パスワード</th>
+					<td>
+						<div class="form-group" th:classappend="${#fields.hasErrors('login_password')}?'has-error'">
+							<input type="text" class="form-control" th:field="*{login_password}">
+							<span class="text-danger" th:if="${#fields.hasErrors('login_password')}" th:errors="*{login_password}">login_id error</span>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="active">社員名</th>
+					<td>
+						<div class="form-group" th:classappend="${#fields.hasErrors('shain_name')}?'has-error'">
+							<input type="text" class="form-control" th:field="*{shain_name}">
+							<span class="text-danger" th:if="${#fields.hasErrors('shain_name')}" th:errors="*{shain_name}">login_id error</span>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="active">社員コード</th>
+					<td>
+						<div class="form-group" th:classappend="${#fields.hasErrors('shain_cd')}?'has-error'">
+							<input type="text" class="form-control" th:field="*{shain_cd}">
+							<span class="text-danger" th:if="${#fields.hasErrors('shain_cd')}" th:errors="*{shain_cd}">login_id error</span>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="active">権限</th>
+					<td>
+						<div class="form-group" th:classappend="${#fields.hasErrors('shaincategory_cd')}?'has-error'">
+							<div th:each="item:${radioAuth}">
+								<input type="radio" name="radioAuth" th:text="${item.key}" th:value="${item.value}" th:field="*{shaincategory_cd}"></input>
+								<span class="text-danger" th:if="${#fields.hasErrors('shaincategory_cd')}" th:errors="*{shaincategory_cd}">login_id error</span>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<ul>
+				<li th:each="error:${#fields.detailedErrors()}">
+					<span th:text="${error.message}">Error message</span>
+				</li>
+			</ul>
+			<button class="btn btn-primary" type="submit">ユーザー登録</button>
+		</form>
+	</div>
+</body>
+</html>
