@@ -25,7 +25,7 @@ public class SignupForm {
 
 	@NotBlank(groups=ValidGroup1.class)
 	@Length(max=3, groups=ValidGroup2.class)
-	@Pattern(regexp="^[0-9]", groups=ValidGroup3.class)
+	@Pattern(regexp="^[0-9]+$", groups=ValidGroup3.class)
 	private String shain_cd;
 
 	@NotBlank(groups=ValidGroup1.class)

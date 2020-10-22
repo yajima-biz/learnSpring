@@ -3,6 +3,7 @@ package com.example.demo.login.controller;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,9 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.login.domain.model.GroupOrder;
 import com.example.demo.login.domain.model.SignupForm;
+import com.example.demo.login.domain.model.User;
+import com.example.demo.login.domain.service.UserService;
 
 @Controller
 public class SignupController {
+	@Autowired
+	private UserService userService;
 
 	private Map<String, String>radioAuth;
 
@@ -46,6 +51,22 @@ public class SignupController {
 		}
 
 		System.out.println(form);
+
+		User user = new User();
+		user.setLogin_id(form.getLogin_id());
+		user.setLogin_password(form.getLogin_password());
+		user.setShain_name(form.getShain_name());
+		user.setShain_cd(form.getShain_cd());
+		user.setShaincategory_cd(form.getShaincategory_cd());
+
+		boolean result = userService.insert(user);
+
+		if(result==true) {
+			System.out.println("insert成功");
+		}else {
+			System.out.println("insert失敗");
+		}
+
 
 		return "redirect:/login";
 	}
