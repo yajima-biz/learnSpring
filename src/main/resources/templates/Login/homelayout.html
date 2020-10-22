@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th ="http:// www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+<link th:href="@{css/home.css}" rel="stylesheet"></link>
+<title>Home</title>
+</head>
+<body>
+	<!-- header(ナビゲーションバー) -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">SpringSample</a>
+			</div>
+			<form action="@{/logout}" method="post">
+				<button class="btn btn-link pull-right navbar-brand" type="submit">ログアウト</button>
+			</form>
+		</div>
+	</nav>
+	<!-- サイドバー -->
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2 sidebar">
+				<ul class="nav nav-pills nav-stacked">
+					<li role="presentation">
+						<a th:href="@{'/userList'}">ユーザー管理</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- コンテンツ -->
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm10 col-sm-offset-2 main">
+				<!-- point -->
+				<div th:include="__${contents}__"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
