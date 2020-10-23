@@ -20,7 +20,7 @@ import com.example.demo.login.domain.repository.UserDao;
 public class UserService {
 
 	@Autowired
-	@Qualifier("UserDaoJdbcImpl3")
+	@Qualifier("UserDaoNamedJdbcImpl")
 	UserDao dao;
 
 	public boolean insert(User user) {
