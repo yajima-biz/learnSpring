@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http:// www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<div th:fragment="userDetail_contents">
+		<div class="row">
+			<div class="col-sm-5">
+				<div class="page-header">
+					<h1>ユーザー詳細</h1>
+				</div>
+				<form method="post" th:action="@{/userDetail}"
+					th:object="${signupForm}">
+					<table class="table table-bordered table-hover">
+						<tr>
+							<th class="active col-sm-2">ログインID</th>
+							<td class="col-sm-3">
+								<div class="form-group"
+									th:classappend="${#fields.hasErrors('login_id')}?'has-error'">
+									<input type="text" class="form-control" th:field="*{login_id}">
+									<span class="text-danger"
+										th:if="${#fields.hasErrors('login_id')}"
+										th:errors="*{login_id}">login_id error</span>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th class="active">パスワード</th>
+							<td>
+								<div class="form-group"
+									th:classappend="${#fields.hasErrors('login_password')}?'has-error'">
+									<input type="text" class="form-control"
+										th:field="*{login_password}"> <span
+										class="text-danger"
+										th:if="${#fields.hasErrors('login_password')}"
+										th:errors="*{login_password}">login_password error</span>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th class="active">社員名</th>
+							<td>
+								<div class="form-group"
+									th:classappend="${#fields.hasErrors('shain_name')}?'has-error'">
+									<input type="text" class="form-control"
+										th:field="*{shain_name}"> <span class="text-danger"
+										th:if="${#fields.hasErrors('shain_name')}"
+										th:errors="*{shain_name}">shain_name error</span>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th class="active">社員コード</th>
+							<td>
+								<div class="form-group"
+									th:classappend="${#fields.hasErrors('shain_cd')}?'has-error'">
+									<input type="text" class="form-control" th:field="*{shain_cd}">
+									<span class="text-danger"
+										th:if="${#fields.hasErrors('shain_cd')}"
+										th:errors="*{shain_cd}">shain_cd error</span>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th class="active">権限</th>
+							<td>
+								<div class="form-group"
+									th:classappend="${#fields.hasErrors('shaincategory_cd')}?'has-error'">
+									<div th:each="item:${radioAuth}">
+										<input type="radio" name="radioAuth" th:text="${item.key}"
+											th:value="${item.value}" th:field="*{shaincategory_cd}"></input>
+										<span class="text-danger"
+											th:if="${#fields.hasErrors('shaincategory_cd')}"
+											th:errors="*{shaincategory_cd}">shaincategory_cd error</span>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+					<ul>
+						<li th:each="error:${#fields.detailedErrors()}"><span
+							th:text="${error.message}">Error message</span></li>
+					</ul>
+					<button class="btn btn-primary btn-lg pull-right" type="submit"
+						name="update">更新</button>
+					<button class="btn btn-danger btn-lg" type="submit" name="delete">削除</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

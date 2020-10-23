@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.login.domain.model.User;
 import com.example.demo.login.domain.repository.UserDao;
 
-@Repository
+@Repository("UserDaoJdbcImpl")
 public class UserDaoJdbcImpl implements UserDao{
 	@Autowired
 	JdbcTemplate jdbc;
@@ -38,7 +38,16 @@ public class UserDaoJdbcImpl implements UserDao{
 
 	@Override
 	public User selectOne(String login_id) throws DataAccessException{
-		return null;
+		Map<String, Object> map = jdbc.queryForMap("SELECT * FROM user WHERE login_id =?",login_id);
+
+		User user = new User();
+		user.setLogin_id((String)map.get("login_id"));
+		user.setLogin_password((String)map.get("login_password"));
+		user.setShain_name((String)map.get("shain_name"));
+		user.setShain_cd((String)map.get("shain_cd"));
+		user.setShaincategory_cd((String)map.get("shaincategory_cd"));
+
+		return user;
 	}
 	@Override
 	public List<User> selectMany() throws DataAccessException{
@@ -62,16 +71,35 @@ public class UserDaoJdbcImpl implements UserDao{
 
 	@Override
 	public int updateOne(User user) throws DataAccessException{
-		return 0;
+		int rowNumber = jdbc.update("UPDATE user SET login_id = ?,"
+				+"login_password = ?,"
+				+"shain_name = ?,"
+				+"shain_cd = ?,"
+				+"shaincategory_cd = ?"
+				,user.getLogin_id()
+				,user.getLogin_password()
+				,user.getShain_name()
+				,user.getShain_cd()
+				,user.getShaincategory_cd());
+
+
+		return rowNumber;
 	}
 
 	@Override
 	public int deleteOne(String login_id) throws DataAccessException{
-		return 0;
+		int rowNumber = jdbc.update("DELETE FROM user WHERE login_id = ?",login_id);
+
+		return rowNumber;
 	}
 
 	@Override
 	public void userCsvOut() throws DataAccessException{
+		String sql = "SELECT * FROM user";
+
+		UserRowCallbackHandler handler = new UserRowCallbackHandler();
+
+		jdbc.query(sql, handler);
 
 	}
 }
