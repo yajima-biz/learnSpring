@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.login.domain.model.User;
@@ -17,6 +18,9 @@ public class UserDaoJdbcImpl implements UserDao{
 	@Autowired
 	JdbcTemplate jdbc;
 
+	@Autowired
+	PasswordEncoder passwordEncoder;
+
 	@Override
 	public int count() throws DataAccessException{
 		int count = jdbc.queryForObject("SELECT COUNT(*) FROM user", Integer.class);
@@ -26,9 +30,11 @@ public class UserDaoJdbcImpl implements UserDao{
 	@Override
 	public int insertOne(User user) throws DataAccessException{
 
+		String password = passwordEncoder.encode(user.getLogin_password());
+
 		int rowNumber = jdbc.update("INSERT INTO user(login_id, login_password, shain_name, shain_cd, shaincategory_cd) VALUES(?,?,?,?,?)"
 				,user.getLogin_id()
-				,user.getLogin_password()
+				,password
 				,user.getShain_name()
 				,user.getShain_cd()
 				,user.getShaincategory_cd()
@@ -71,13 +77,14 @@ public class UserDaoJdbcImpl implements UserDao{
 
 	@Override
 	public int updateOne(User user) throws DataAccessException{
+		String password = passwordEncoder.encode(user.getLogin_password());
 		int rowNumber = jdbc.update("UPDATE user SET login_id = ?,"
 				+"login_password = ?,"
 				+"shain_name = ?,"
 				+"shain_cd = ?,"
 				+"shaincategory_cd = ?"
 				,user.getLogin_id()
-				,user.getLogin_password()
+				,password
 				,user.getShain_name()
 				,user.getShain_cd()
 				,user.getShaincategory_cd());
