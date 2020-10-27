@@ -33,8 +33,8 @@ public class ShohinService {
 		return dao.count();
 	}
 
-	public List<Shohin> selectMany(){
-		return dao.selectMany();
+	public List<Shohin> selectMany(String kigyo_cd){
+		return dao.selectMany(kigyo_cd);
 	}
 
 	public Shohin selectOne(String login_id) {

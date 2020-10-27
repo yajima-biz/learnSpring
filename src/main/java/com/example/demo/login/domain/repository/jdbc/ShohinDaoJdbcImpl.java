@@ -26,9 +26,12 @@ public class ShohinDaoJdbcImpl implements ShohinDao{
 	@Override
 	public int insertOne(Shohin shohin) throws DataAccessException{
 
-		int rowNumber = jdbc.update("INSERT INTO shohin(shohin_id, shohin_name, shohin_logo) VALUES(?,?,?)"
+		int rowNumber = jdbc.update("INSERT INTO shohin(shohin_id, shohin_name, kigyo_cd, shohin_setsumei, price, shohin_logo) VALUES(?,?,?,?,?,?)"
 				,shohin.getShohin_id()
 				,shohin.getShohin_name()
+				,shohin.getKigyo_cd()
+				,shohin.getShohin_setsumei()
+				,shohin.getPrice()
 				,shohin.getShohin_logo()
 				);
 		return rowNumber;
@@ -41,13 +44,16 @@ public class ShohinDaoJdbcImpl implements ShohinDao{
 		Shohin shohin = new Shohin();
 		shohin.setShohin_id((String)map.get("shohin_id"));
 		shohin.setShohin_name((String)map.get("shohin_name"));
+		shohin.setKigyo_cd((String)map.get("kigyo_cd"));
+		shohin.setShohin_setsumei((String)map.get("shohin_setsumei"));
+		shohin.setPrice((String)map.get("price"));
 		shohin.setShohin_logo((String)map.get("shohin_logo"));
 
 		return shohin;
 	}
 	@Override
-	public List<Shohin> selectMany() throws DataAccessException{
-		List<Map<String, Object>> getList = jdbc.queryForList("SELECT * FROM shohin");
+	public List<Shohin> selectMany(String kigyo_cd) throws DataAccessException{
+		List<Map<String, Object>> getList = jdbc.queryForList("SELECT shohin.shohin_id, shohin.shohin_name, shohin.kigyo_cd, kigyo.kigyo_name, shohin.shohin_setsumei, shohin.price, shohin.shohin_logo FROM shohin LEFT JOIN kigyo ON shohin.kigyo_cd = kigyo.kigyo_cd WHERE kigyo_cd = ? ",kigyo_cd);
 
 		List<Shohin> shohinList = new ArrayList<>();
 
@@ -56,6 +62,10 @@ public class ShohinDaoJdbcImpl implements ShohinDao{
 
 			shohin.setShohin_id((String)map.get("shohin_id"));
 			shohin.setShohin_name((String)map.get("shohin_name"));
+			shohin.setKigyo_cd((String)map.get("kigyo_cd"));
+			shohin.setKigyo_name((String)map.get("kigyo_name"));
+			shohin.setShohin_setsumei((String)map.get("shohin_setsumei"));
+			shohin.setPrice((String)map.get("price"));
 			shohin.setShohin_logo((String)map.get("shohin_logo"));
 
 			shohinList.add(shohin);
@@ -67,9 +77,15 @@ public class ShohinDaoJdbcImpl implements ShohinDao{
 	public int updateOne(Shohin shohin) throws DataAccessException{
 		int rowNumber = jdbc.update("UPDATE shohin SET shohin_id = ?,"
 				+"shohin_name = ?,"
+				+"kigyo_cd = ?,"
+				+"shohin_setsumei = ?,"
+				+"price = ?,"
 				+"shohin_logo = ?"
 				,shohin.getShohin_id()
 				,shohin.getShohin_name()
+				,shohin.getKigyo_cd()
+				,shohin.getShohin_setsumei()
+				,shohin.getPrice()
 				,shohin.getShohin_logo());
 
 

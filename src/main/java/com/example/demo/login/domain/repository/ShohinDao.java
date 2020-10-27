@@ -10,7 +10,7 @@ public interface ShohinDao {
 	public int count() throws DataAccessException;
 	public int insertOne(Shohin shohin) throws DataAccessException;
 	public Shohin selectOne(String shohin_id) throws DataAccessException;
-	public List<Shohin> selectMany() throws DataAccessException;
+	public List<Shohin> selectMany(String kigyo_cd) throws DataAccessException;
 	public int updateOne(Shohin shohin) throws DataAccessException;
 	public int deleteOne(String shohin_id) throws DataAccessException;
 }

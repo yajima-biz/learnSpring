@@ -8,6 +8,7 @@ public class Shohin {
 	private String shohin_name;
 	private String shohin_setsumei;
 	private String kigyo_name;
+	private String kigyo_cd;
 	private String shohin_logo;
 	private String price;
 }
