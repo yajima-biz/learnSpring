@@ -15,7 +15,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#">SpringSample</a>
+				<a class="navbar-brand" href="#">自動販売機システム</a>
 			</div>
 			<form action="@{/logout}" method="post">
 				<button class="btn btn-link pull-right navbar-brand" type="submit">ログアウト</button>
@@ -27,6 +27,15 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 		<div class="row">
 			<div class="col-sm-2 sidebar">
 				<ul class="nav nav-pills nav-stacked">
+					<li role="presentation" sec:authorize="hasRole('ADMIN')">
+						<a th:href="@{'/userList'}">企業一覧</a>
+					</li>
+					<li role="presentation" sec:authorize="hasRole('ADMIN')">
+						<a th:href="@{'/userList'}">商品一覧</a>
+					</li>
+					<li role="presentation" sec:authorize="hasRole('ADMIN')">
+						<a th:href="@{'/userList'}">購入履歴</a>
+					</li>
 					<li role="presentation" sec:authorize="hasRole('ADMIN')">
 						<a th:href="@{'/userList'}">ユーザー管理</a>
 					</li>

@@ -16,14 +16,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.demo.login.domain.model.Kigyo;
 import com.example.demo.login.domain.model.SignupForm;
 import com.example.demo.login.domain.model.User;
+import com.example.demo.login.domain.service.KigyoService;
 import com.example.demo.login.domain.service.UserService;
 
 @Controller
 public class HomeController {
 	@Autowired
 	UserService userService;
+
+	@Autowired
+	KigyoService kigyoService;
 
 	private Map<String, String>radioAuth;
 
@@ -40,6 +45,12 @@ public class HomeController {
 	@GetMapping("/home")
 	public String getHome(Model model) {
 		model.addAttribute("contents","login/home :: home_contents");
+
+		List<Kigyo> kigyoList = kigyoService.selectMany();
+		model.addAttribute("kigyoList",kigyoList);
+
+		int count = kigyoService.count();
+		model.addAttribute("kigyoListCount",count);
 
 		return "login/homeLayout";
 	}
