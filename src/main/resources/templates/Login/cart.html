@@ -4,26 +4,27 @@
 <meta charset="UTF-8">
 </head>
 <body>
-	<div th:fragment="shohinList_contents">
+	<div th:fragment="cart_contents">
 		<div class="page-header">
-			<h1>商品一覧</h1>
+			<h1>買い物かご</h1>
 		</div>
 		<table class="table table-bordered table-hover table-striped">
 			<tr>
-				<th class="info col-sm-1">商品ロゴ</th>
+				<th class="info col-sm-1"></th>
 				<th class="info col-sm-2">商品名</th>
-				<th class="info col-sm-2">企業名</th>
 				<th class="info col-sm-1">値段</th>
+				<th class="info col-sm-1">個数</th>
 				<th class="info col-sm-1"></th>
 			</tr>
-			<tr th:each="shohin:${shohinList}">
-				<td><img alt="shohin_logo" th:src="${shohin.shohin_logo}" width="50px" height="100px" ></td>
-				<td th:text="${shohin.shohin_name}"></td>
-				<td th:text="${shohin.kigyo_name}"></td>
-				<td th:text="${shohin.price}"></td>
-				<td><a class="btn btn-primary" th:href="@{'/shohinDetail/' + ${shohin.shohin_id}}">詳細</a></td>
+			<tr th:each="cart:${cartList}">
+				<td><img alt="shohin_logo" th:src="${cart.shohin_logo}" width="50px" height="100px" ></td>
+				<td th:text="${cart.shohin_name}"></td>
+				<td th:text="${cart.price}"></td>
+				<td th:text="${cart.number}"></td>
+				<td><a class="btn btn-primary" th:href="@{'/cartDelete/' + ${cart.shohin_id}}">削除</a></td>
 			</tr>
 		</table>
+		<a class="btn btn-primary" th:href="@{'/checkOut'}">チェックアウト</a>
 		<label th:text="'合計：' + ${count} + '件'"></label></br>
 		<label class="text-info" th:text="${result}">結果表示</label></br>
 	</div>

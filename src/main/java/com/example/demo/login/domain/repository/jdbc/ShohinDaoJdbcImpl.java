@@ -18,8 +18,8 @@ public class ShohinDaoJdbcImpl implements ShohinDao{
 	JdbcTemplate jdbc;
 
 	@Override
-	public int count() throws DataAccessException{
-		int count = jdbc.queryForObject("SELECT COUNT(*) FROM shohin", Integer.class);
+	public int count(String kigyo_cd) throws DataAccessException{
+		int count = jdbc.queryForObject("SELECT COUNT(*) FROM shohinshosai WHERE kigyo_cd = "+kigyo_cd, Integer.class);
 		return count;
 	}
 
@@ -39,21 +39,21 @@ public class ShohinDaoJdbcImpl implements ShohinDao{
 
 	@Override
 	public Shohin selectOne(String shohin_id) throws DataAccessException{
-		Map<String, Object> map = jdbc.queryForMap("SELECT * FROM shohin WHERE shohin_id =?",shohin_id);
+		Map<String, Object> map = jdbc.queryForMap("SELECT * FROM shohinshosai WHERE shohin_id =?",shohin_id);
 
 		Shohin shohin = new Shohin();
 		shohin.setShohin_id((String)map.get("shohin_id"));
 		shohin.setShohin_name((String)map.get("shohin_name"));
 		shohin.setKigyo_cd((String)map.get("kigyo_cd"));
 		shohin.setShohin_setsumei((String)map.get("shohin_setsumei"));
-		shohin.setPrice((String)map.get("price"));
+		shohin.setPrice((Integer)map.get("price"));
 		shohin.setShohin_logo((String)map.get("shohin_logo"));
 
 		return shohin;
 	}
 	@Override
 	public List<Shohin> selectMany(String kigyo_cd) throws DataAccessException{
-		List<Map<String, Object>> getList = jdbc.queryForList("SELECT shohin.shohin_id, shohin.shohin_name, shohin.kigyo_cd, kigyo.kigyo_name, shohin.shohin_setsumei, shohin.price, shohin.shohin_logo FROM shohin LEFT JOIN kigyo ON shohin.kigyo_cd = kigyo.kigyo_cd WHERE kigyo_cd = ? ",kigyo_cd);
+		List<Map<String, Object>> getList = jdbc.queryForList("SELECT shohinshosai.shohin_id, shohinshosai.shohin_name, shohinshosai.kigyo_cd, kigyo.kigyo_name, shohinshosai.shohin_setsumei, shohinshosai.price, shohinshosai.shohin_logo FROM shohinshosai LEFT JOIN kigyo ON shohinshosai.kigyo_cd = kigyo.kigyo_cd WHERE shohinshosai.kigyo_cd = ? ",kigyo_cd);
 
 		List<Shohin> shohinList = new ArrayList<>();
 
@@ -65,7 +65,7 @@ public class ShohinDaoJdbcImpl implements ShohinDao{
 			shohin.setKigyo_cd((String)map.get("kigyo_cd"));
 			shohin.setKigyo_name((String)map.get("kigyo_name"));
 			shohin.setShohin_setsumei((String)map.get("shohin_setsumei"));
-			shohin.setPrice((String)map.get("price"));
+			shohin.setPrice((Integer)map.get("price"));
 			shohin.setShohin_logo((String)map.get("shohin_logo"));
 
 			shohinList.add(shohin);

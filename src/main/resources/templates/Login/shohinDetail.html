@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th ="http:// www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<div th:fragment="shohinDetail_contents">
+		<div class="page-header">
+			<h1>商品詳細</h1>
+		</div>
+			<div class="media">
+				<div class="media-left media-middle">
+					<img alt="shohin_logo" th:src="${shohin.shohin_logo}" width="100px" height="200px" >
+				</div>
+				<div class="media-body">
+					<h4 class="media-heading" th:text="${shohin.shohin_name}"></h4>
+					<p th:text="${shohin.shohin_setsumei}"></p>
+					<p th:text="${shohin.price}+'円'"></p>
+				</div>
+			</div>
+			<div class="selectNumber">
+				<form class="form-inline" method="post" th:action="@{/shohinInCart}">
+					<div class="form-group mb-2">
+						<label>個数：</label>
+						<select class="custom-select my-1 mr-sm-2" id="number" name="number">
+							<option value="1" selected>1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+						</select>
+					</div>
+					<input type="hidden" name="shohin_id" th:value="${shohin.shohin_id}">
+					<input type="hidden" name="kigyo_cd" th:value="${shohin.kigyo_cd}">
+					<button type="submit" class="btn btn-primary mb-2">買い物かごに入れる</button>
+				</form>
+
+			</div>
+		<label class="text-info" th:text="${result}">結果表示</label></br>
+	</div>
+</body>
+</html>

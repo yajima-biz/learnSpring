@@ -15,9 +15,9 @@
 				<th class="info col-sm-2"></th>
 			</tr>
 			<tr th:each="kigyo:${kigyoList}">
-				<td><img alt="kigyo_logo" th:src="'img/kigyo/' + ${kigyo.kigyo_logo}" width="100px" height="50px" ></td>
+				<td><img alt="kigyo_logo" th:src="'image/kigyo/' + ${kigyo.kigyo_logo}" width="100px" height="50px" ></td>
 				<td th:text="${kigyo.kigyo_name}"></td>
-				<td><a class="btn btn-primary" th:href="@{'/kigyoDetail/' + ${kigyo.kigyo_cd}}">商品一覧</a></td>
+				<td><a class="btn btn-primary" th:href="@{'/shohinList/' + ${kigyo.kigyo_cd}}">商品一覧</a></td>
 			</tr>
 		</table>
 		<label th:text="'合計：' + ${kigyoListCount} + '件'"></label></br>

@@ -29,8 +29,8 @@ public class ShohinService {
 		return result;
 	}
 
-	public int count() {
-		return dao.count();
+	public int count(String kigyo_cd) {
+		return dao.count(kigyo_cd);
 	}
 
 	public List<Shohin> selectMany(String kigyo_cd){
